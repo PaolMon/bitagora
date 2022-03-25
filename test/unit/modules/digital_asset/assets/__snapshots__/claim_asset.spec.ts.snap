@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ClaimAsset constructor should have valid schema 1`] = `
+Object {
+  "$id": "digitalAsset/claim-asset",
+  "properties": Object {
+    "new_hosts": Object {
+      "fieldNumber": 4,
+      "items": Object {
+        "dataType": "bytes",
+      },
+      "type": "array",
+    },
+    "new_merkle_height": Object {
+      "dataType": "uint32",
+      "fieldNumber": 3,
+    },
+    "new_merkle_root": Object {
+      "dataType": "bytes",
+      "fieldNumber": 2,
+    },
+    "new_secret": Object {
+      "dataType": "string",
+      "fieldNumber": 5,
+    },
+    "old_merkle_root": Object {
+      "dataType": "bytes",
+      "fieldNumber": 1,
+    },
+  },
+  "required": Array [
+    "old_merkle_root",
+    "new_merkle_root",
+    "new_merkle_height",
+    "new_hosts",
+  ],
+  "title": "ClaimAsset transaction asset for digitalAsset module",
+  "type": "object",
+}
+`;

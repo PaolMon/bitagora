@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RegisterAsset constructor should have valid schema 1`] = `
+Object {
+  "$id": "infos/register-asset",
+  "properties": Object {
+    "ip_address": Object {
+      "dataType": "string",
+      "fieldNumber": 1,
+    },
+    "port": Object {
+      "dataType": "unit32",
+      "fieldNumber": 2,
+    },
+  },
+  "required": Array [
+    "ip_address",
+    "port",
+  ],
+  "title": "RegisterAsset transaction asset for infos module",
+  "type": "object",
+}
+`;

@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResponseAsset constructor should have valid schema 1`] = `
+Object {
+  "$id": "digitalAsset/response-asset",
+  "properties": Object {
+    "address": Object {
+      "dataType": "bytes",
+      "fieldNumber": 1,
+    },
+    "merkle_root": Object {
+      "dataType": "bytes",
+      "fieldNumber": 2,
+    },
+    "new_secret": Object {
+      "dataType": "string",
+      "fieldNumber": 4,
+    },
+    "response": Object {
+      "dataType": "string",
+      "fieldNumber": 3,
+    },
+  },
+  "required": Array [
+    "address",
+    "merkle_root",
+    "response",
+    "new_secret",
+  ],
+  "title": "ResponseAsset transaction asset for digitalAsset module",
+  "type": "object",
+}
+`;

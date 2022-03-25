@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RequestAsset constructor should have valid schema 1`] = `
+Object {
+  "$id": "digitalAsset/request-asset",
+  "properties": Object {
+    "merkle_root": Object {
+      "dataType": "bytes",
+      "fieldNumber": 1,
+    },
+    "mode": Object {
+      "dataType": "string",
+      "fieldNumber": 2,
+    },
+  },
+  "required": Array [
+    "merkle_root",
+    "type_of",
+  ],
+  "title": "RequestAsset transaction asset for digitalAsset module",
+  "type": "object",
+}
+`;
