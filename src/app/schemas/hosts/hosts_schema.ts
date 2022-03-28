@@ -8,13 +8,13 @@ export const registeredHostsSchema = {
 		fieldNumber: 1,
 		items: {
 			type: 'object',
-			required: ['address', 'ip_address', 'port'],
+			required: ['address', 'ipAddress', 'port'],
 			properties: {
 				address: {
 					dataType: 'bytes',
 					fieldNumber: 1
 				},
-				ip_address:{
+				ipAddress:{
 					dataType: 'string',
 					fieldNumber: 2
 				},

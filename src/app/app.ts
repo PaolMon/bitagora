@@ -15,7 +15,11 @@ export const getApplication = (
 			digitalAsset: {
 				pending: [],
 				allowed: [],
-				my_files: [],
+				myFiles: [],
+			},
+			infos: {
+				myNeighbors: [],
+				hostedFiles: []
 			}
         }),
 	);

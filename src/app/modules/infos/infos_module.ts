@@ -34,13 +34,13 @@ export class InfosModule extends BaseModule {
         // getBalance: async (params) => this._dataAccess.account.get(params.address).token.balance,
         // getBlockByID: async (params) => this._dataAccess.blocks.get(params.id),
         getAccountInfos:async (params:Record<string, unknown>) => {
-            const { address } = params;
-            if (!Buffer.isBuffer(address)) {
-                throw new Error('address must be a buffer');
-            }
-            const account = await this._dataAccess.getAccountByAddress<BitagoraAccountProps>(address);
+            let { address } = params;
+            if (!Buffer.isBuffer(address) && typeof address === 'string') {
+                address = Buffer.from(address, 'hex')
+            } 
+            const account = await this._dataAccess.getAccountByAddress<BitagoraAccountProps>(address as Buffer);
             return account.infos;
-        }
+        },
     };
     public reducers = {
         // Example below
@@ -48,20 +48,20 @@ export class InfosModule extends BaseModule {
 			params: Record<string, unknown>,
 			stateStore: StateStore,
 		): Promise<void> => {
-			const { senderAddress, owner, merkle_root } = params;
+			const { senderAddress, owner, merkleRoot } = params;
 			if (!Buffer.isBuffer(senderAddress)) {
 				throw new Error('senderAddress must be a buffer');
 			}
 			if (!Buffer.isBuffer(owner)) {
 				throw new Error('owner must be a buffer');
 			}
-			if (!Buffer.isBuffer(merkle_root)) {
+			if (!Buffer.isBuffer(merkleRoot)) {
 				throw new Error('merkle_root must be a buffer');
 			}
 			const account = await stateStore.account.get<BitagoraAccountProps>(senderAddress);
-            account.infos.hosted_files.push({
+            account.infos.hostedFiles.push({
                 owner: owner,
-                merkle_root: merkle_root
+                merkleRoot: merkleRoot
             })
 
             await stateStore.account.set(senderAddress, account)

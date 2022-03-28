@@ -8,11 +8,11 @@ Object {
       "dataType": "bytes",
       "fieldNumber": 1,
     },
-    "merkle_root": Object {
+    "merkleRoot": Object {
       "dataType": "bytes",
       "fieldNumber": 2,
     },
-    "new_secret": Object {
+    "newSecret": Object {
       "dataType": "string",
       "fieldNumber": 4,
     },
@@ -23,9 +23,9 @@ Object {
   },
   "required": Array [
     "address",
-    "merkle_root",
+    "merkleRoot",
     "response",
-    "new_secret",
+    "newSecret",
   ],
   "title": "ResponseAsset transaction asset for digitalAsset module",
   "type": "object",

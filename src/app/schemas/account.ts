@@ -1,28 +1,28 @@
 export interface BitagoraAccountProps {
     infos: {
-        my_neighbors: {
+        myNeighbors: {
             address: Buffer,
-            ip_address: string,
+            ipAddress: string,
             port: number
         }[],
-        hosted_files: {
+        hostedFiles: {
             owner: Buffer,
-            merkle_root: Buffer
+            merkleRoot: Buffer
         }[],
     },
     digitalAsset: {
         pending: {
-            file_name: string,
-            merkle_root: Buffer
+            fileName: string,
+            merkleRoot: Buffer
         }[],
         allowed: {
-            file_name: string,
-            merkle_root: Buffer,
+            fileName: string,
+            merkleRoot: Buffer,
             secret: string
         }[],
-        my_files: {
-            file_name: string,
-            merkle_root: Buffer,
+        myFiles: {
+            fileName: string,
+            merkleRoot: Buffer,
             secret:string
         }[],
     }
@@ -31,7 +31,8 @@ export interface BitagoraAccountProps {
 export const infosSchema = {
     type: 'object',
     properties: {
-        my_neighbors: {
+        myNeighbors: {
+            fieldNumber: 1,
             type: 'array',
             items: {
                 type: 'object',
@@ -40,7 +41,7 @@ export const infosSchema = {
                         dataType:'bytes',
                         fieldNumber: 1
                     },
-                    ip_address: {
+                    ipAddress: {
                         dataType:'string',
                         fieldNumber: 2
                     },
@@ -51,7 +52,8 @@ export const infosSchema = {
                 }
             }
         },
-        hosted_files: {
+        hostedFiles: {
+            fieldNumber: 2,
             type: 'array',
             items: {
                 type: 'object',
@@ -60,7 +62,7 @@ export const infosSchema = {
                         dataType:'bytes',
                         fieldNumber: 1
                     },
-                    merkle_root: {
+                    merkleRoot: {
                         dataType:'bytes',
                         fieldNumber: 2
                     }
@@ -69,24 +71,25 @@ export const infosSchema = {
         }
     },
     default: {
-        my_neighbors: [],
-        hosted_files: []
+        myNeighbors: [],
+        hostedFiles: []
     }
 }
 
 export const digitalAssetAccountSchema = {
     type: 'object',
     properties: {
-        my_files: {
+        myFiles: {
+            fieldNumber: 1,
             type: 'array',
             items: {
                 type: 'object',
                 properties: {
-                    merkle_root: {
+                    merkleRoot: {
                         dataType:'bytes',
                         fieldNumber: 1
                     },
-                    file_name: {
+                    fileName: {
                         dataType:'string',
                         fieldNumber: 2
                     },
@@ -98,15 +101,16 @@ export const digitalAssetAccountSchema = {
             }
         },
         pending: {
+            fieldNumber: 2,
             type: 'array',
             items: {
                 type: 'object',
                 properties: {
-                    merkle_root: {
+                    merkleRoot: {
                         dataType:'bytes',
                         fieldNumber: 1
                     },
-                    file_name: {
+                    fileName: {
                         dataType:'string',
                         fieldNumber: 2
                     }
@@ -114,15 +118,16 @@ export const digitalAssetAccountSchema = {
             }
         },
         allowed: {
+            fieldNumber: 3,
             type: 'array',
             items: {
                 type: 'object',
                 properties: {
-                    merkle_root: {
+                    merkleRoot: {
                         dataType:'bytes',
                         fieldNumber: 1
                     },
-                    file_name: {
+                    fileName: {
                         dataType:'string',
                         fieldNumber: 2
                     },
@@ -135,7 +140,7 @@ export const digitalAssetAccountSchema = {
         }
     },
     default: {
-        my_files: [],
+        myFiles: [],
         pending: [],
         allowed: []
     }

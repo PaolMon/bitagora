@@ -6,7 +6,7 @@ import { getAssetByMerkleRoot } from '../utils/assets';
 import { getChunkByMerkleRoot, updateChunk } from '../utils/chunks';
 
 export type request = {
-	merkle_root: Buffer,
+	merkleRoot: Buffer,
 	mode: string
 }
 
@@ -19,9 +19,9 @@ export class RequestAsset extends BaseAsset {
 			$id: 'digitalAsset/request-asset',
 			title: 'RequestAsset transaction asset for digitalAsset module',
 			type: 'object',
-			required: ['merkle_root', 'type_of'],
+			required: ['merkleRoot', 'mode'],
 			properties: {
-				merkle_root:{
+				merkleRoot:{
 					dataType: 'bytes',
 					fieldNumber: 1
 				},
@@ -44,36 +44,36 @@ export class RequestAsset extends BaseAsset {
 		
 		const senderAddress = transaction.senderAddress;
 		
-		let chunk = await getChunkByMerkleRoot(stateStore, asset.merkle_root);
+		let chunk = await getChunkByMerkleRoot(stateStore, asset.merkleRoot);
 
 		if (senderAddress.compare(chunk.owner) === 0){
 			throw new Error("Requester is already the owner of the Asset");
 		}
 		
-		const index: number = chunk.requested_by.findIndex((t) => (t.address.equals(senderAddress) && t.status !== request_status.rejected));
+		const index: number = chunk.requestedBy.findIndex((t) => (t.address.equals(senderAddress) && t.status !== request_status.rejected));
 		if (index >= 0) {
 			throw new Error("this address has already requested this asset");
 		}
 
 		let senderAccount = await stateStore.account.get<BitagoraAccountProps>(senderAddress);
-		const index_a: number = senderAccount.digitalAsset.pending.findIndex((t) => t.merkle_root.equals(asset.merkle_root));
+		const index_a: number = senderAccount.digitalAsset.pending.findIndex((t) => t.merkleRoot.equals(asset.merkleRoot));
 		if (index_a >= 0) {
 			throw new Error("this Account has already requested this asset");
 		}
 
 		const ro: request_object = {
 			address: senderAddress,
-			request_transaction: transaction.id,
-			response_transaction: Buffer.alloc(0),
-			request_type: asset.mode,
+			requestTransaction: transaction.id,
+			responseTransaction: Buffer.alloc(0),
+			requestType: asset.mode,
 			status: request_status.pending
 		};
-		chunk.requested_by.push(ro);
+		chunk.requestedBy.push(ro);
 
-		const da: digitalAsset = await getAssetByMerkleRoot(stateStore, asset.merkle_root);
+		const da: digitalAsset = await getAssetByMerkleRoot(stateStore, asset.merkleRoot);
 		senderAccount.digitalAsset.pending.push({
-			file_name: da.file_name,
-			merkle_root: asset.merkle_root
+			fileName: da.fileName,
+			merkleRoot: asset.merkleRoot
 		});
 
 		await updateChunk(stateStore, chunk);

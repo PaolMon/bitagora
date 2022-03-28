@@ -4,25 +4,25 @@ exports[`CreateAsset constructor should have valid schema 1`] = `
 Object {
   "$id": "digitalAsset/create-asset",
   "properties": Object {
-    "file_hash": Object {
-      "dataType": "string",
+    "fileHash": Object {
+      "dataType": "bytes",
       "fieldNumber": 3,
     },
-    "file_name": Object {
+    "fileName": Object {
       "dataType": "string",
       "fieldNumber": 1,
       "maxLength": 64,
     },
-    "file_size": Object {
+    "fileSize": Object {
       "dataType": "uint32",
       "fieldNumber": 2,
     },
-    "merkle_height": Object {
+    "merkleHeight": Object {
       "dataType": "uint32",
       "fieldNumber": 5,
     },
-    "merkle_root": Object {
-      "dataType": "string",
+    "merkleRoot": Object {
+      "dataType": "bytes",
       "fieldNumber": 4,
     },
     "secret": Object {
@@ -31,11 +31,11 @@ Object {
     },
   },
   "required": Array [
-    "file_name",
-    "file_size",
-    "file_hash",
-    "merkle_root",
-    "merkle_height",
+    "fileName",
+    "fileSize",
+    "fileHash",
+    "merkleRoot",
+    "merkleHeight",
     "secret",
   ],
   "title": "CreateAsset transaction asset for digitalAsset module",

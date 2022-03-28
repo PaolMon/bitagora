@@ -4,7 +4,7 @@ exports[`RegisterAsset constructor should have valid schema 1`] = `
 Object {
   "$id": "infos/register-asset",
   "properties": Object {
-    "ip_address": Object {
+    "ipAddress": Object {
       "dataType": "string",
       "fieldNumber": 1,
     },
@@ -14,7 +14,7 @@ Object {
     },
   },
   "required": Array [
-    "ip_address",
+    "ipAddress",
     "port",
   ],
   "title": "RegisterAsset transaction asset for infos module",

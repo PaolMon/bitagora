@@ -5,6 +5,6 @@ export type registered_hosts = {
 
 export type host = {
     address: Buffer,
-    ip_address: string,
+    ipAddress: string,
     port: number
 }

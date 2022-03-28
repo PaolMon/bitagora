@@ -5,7 +5,7 @@ import { getAllHosts, getHostIndex, setNewHost } from '../utils/hosts';
 import { BitagoraAccountProps } from '../../../schemas/account';
 
 export type register = {
-	ip_address: string,
+	ipAddress: string,
 	port: number
 }
 
@@ -17,12 +17,12 @@ export class RegisterAsset extends BaseAsset {
 
   // Define schema for asset
 	public schema = {
-    $id: 'infos/register-asset',
+    	$id: 'infos/register-asset',
 		title: 'RegisterAsset transaction asset for infos module',
 		type: 'object',
-		required: ['ip_address', 'port'],
+		required: ['ipAddress', 'port'],
 		properties: {
-			ip_address: {
+			ipAddress: {
 				dataType: 'string',
 				fieldNumber: 1
 			},
@@ -34,7 +34,7 @@ export class RegisterAsset extends BaseAsset {
   	};
 
 	public validate({ asset }: ValidateAssetContext<register>): void {
-		const splitted: string[] = asset.ip_address.split('.');
+		const splitted: string[] = asset.ipAddress.split('.');
 		if(splitted.length !== 4) {
 			throw new Error('Not a valid IP Address.');
 		}
@@ -54,7 +54,7 @@ export class RegisterAsset extends BaseAsset {
 
 		  await setNewHost(stateStore, {
 			  address: senderAddress,
-			  ip_address: asset.ip_address,
+			  ipAddress: asset.ipAddress,
 			  port: asset.port
 		  });
 
@@ -79,7 +79,7 @@ export class RegisterAsset extends BaseAsset {
 
 		  let senderAccount = await stateStore.account.get<BitagoraAccountProps>(senderAddress);
 
-		  senderAccount.infos.my_neighbors = my_neighbors;
+		  senderAccount.infos.myNeighbors = my_neighbors;
 
 		  await stateStore.account.set(senderAddress, senderAccount).catch();
 	}

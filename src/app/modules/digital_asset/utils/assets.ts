@@ -12,7 +12,7 @@ export const setNewAsset= async (stateStore: StateStore, asset: digitalAsset) =>
 
     DAs.push(asset);
 
-    const registeredAssets: registeredAssets = {registeredAssets: DAs.sort((a, b) => a.merkle_root.compare(b.merkle_root))};
+    const registeredAssets: registeredAssets = {registeredAssets: DAs.sort((a, b) => a.merkleRoot.compare(b.merkleRoot))};
 
     await stateStore.chain.set(
         CHAIN_STATE_DIGITAL_ASSETS,
@@ -37,10 +37,10 @@ export const getAllAssets = async (stateStore: StateStore) => {
     return registeredAssets.registeredAssets;
 }
 
-export const getAssetByMerkleRoot = async (stateStore: StateStore, merkle_root: Buffer) => {
+export const getAssetByMerkleRoot = async (stateStore: StateStore, merkleRoot: Buffer) => {
     const DAs:digitalAsset[] = await getAllAssets(stateStore);
 
-    const DA_index: number = DAs.findIndex((t) => t.merkle_root.equals(merkle_root));
+    const DA_index: number = DAs.findIndex((t) => t.merkleRoot.equals(merkleRoot));
 
     if (DA_index < 0) {
         throw new Error("Asset not found");
@@ -54,7 +54,7 @@ export const getAssetByMerkleRoot = async (stateStore: StateStore, merkle_root: 
 */
 
 
-export const _getAssetByMerkleRoot = async (dataAccess: BaseModuleDataAccess, merkle_root: Buffer): Promise<digitalAsset> => {
+export const _getAssetByMerkleRoot = async (dataAccess: BaseModuleDataAccess, merkleRoot: Buffer): Promise<digitalAsset> => {
     const registeredAssetsBuffer = await dataAccess.getChainState(
         CHAIN_STATE_DIGITAL_ASSETS
     );
@@ -69,7 +69,7 @@ export const _getAssetByMerkleRoot = async (dataAccess: BaseModuleDataAccess, me
     );
     const DAs = registeredAssets.registeredAssets;
 
-    const DA_index: number = DAs.findIndex((t) => t.merkle_root.equals(merkle_root));
+    const DA_index: number = DAs.findIndex((t) => t.merkleRoot.equals(merkleRoot));
 
     if (DA_index < 0) {
         throw new Error("Asset not found");
@@ -95,7 +95,7 @@ export const _getAllJSONAssets =async (dataAccess: BaseModuleDataAccess) => {
       return codec.toJSON(registeredAssetsSchema, registeredAssets);
 }
 
-export const _getAssetHistoryByMerkleRoot = async (dataAccess: BaseModuleDataAccess, merkle_root: Buffer) => {
+export const _getAssetHistoryByMerkleRoot = async (dataAccess: BaseModuleDataAccess, merkleRoot: Buffer) => {
 
     const registeredAssetsBuffer = await dataAccess.getChainState(
         CHAIN_STATE_DIGITAL_ASSETS
@@ -115,9 +115,9 @@ export const _getAssetHistoryByMerkleRoot = async (dataAccess: BaseModuleDataAcc
     let index = -1;
     let asset: digitalAsset;
 
-    while(merkle_root.compare(Buffer.alloc(0)) === 0) {
+    while(merkleRoot.compare(Buffer.alloc(0)) === 0) {
         
-        index = DAs.findIndex((t) => t.merkle_root.equals(merkle_root));
+        index = DAs.findIndex((t) => t.merkleRoot.equals(merkleRoot));
 
         if (index < 0) {
             throw new Error("Asset not found");
@@ -126,7 +126,7 @@ export const _getAssetHistoryByMerkleRoot = async (dataAccess: BaseModuleDataAcc
         asset = DAs[index];
         related_assets.push(asset);
 
-        merkle_root = asset.previous_asset_reference;
+        merkleRoot = asset.previousAssetReference;
     }
 
     return codec.toJSON(registeredAssetsSchema, {registeredAssets: related_assets});

@@ -48,27 +48,27 @@ describe('RegisterAsset', () => {
 				hosts: [
 					{
 						address: Buffer.alloc(9,'address_1'),
-						ip_address: '192.168.1.10',
+						ipAddress: '192.168.1.10',
 						port: 9999
 					},
 					{
 						address: Buffer.alloc(9,'address_2'),
-						ip_address: '192.168.1.20',
+						ipAddress: '192.168.1.20',
 						port: 8888
 					},
 					{
 						address: Buffer.alloc(9,'address_3'),
-						ip_address: '192.168.1.30',
+						ipAddress: '192.168.1.30',
 						port: 7777
 					},
 					{
 						address: Buffer.alloc(9,'address_4'),
-						ip_address: '192.168.1.40',
+						ipAddress: '192.168.1.40',
 						port: 6666
 					},
 					// {
 					// 	address: Buffer.alloc(9,'address_5'),
-					// 	ip_address: '192.168.1.50',
+					// 	ipAddress: '192.168.1.50',
 					// 	port: 5555
 					// }
 				]
@@ -81,7 +81,7 @@ describe('RegisterAsset', () => {
 			});
 			
 			const register_object: register = {
-				ip_address: '127.0.0.1',
+				ipAddress: '127.0.0.1',
 				port: 10000
 			}
 	
@@ -100,7 +100,7 @@ describe('RegisterAsset', () => {
 				let list = test_registered_hosts.hosts;
 				list.push({
 					address: context.transaction.senderAddress,
-					ip_address: '127.0.0.1',
+					ipAddress: '127.0.0.1',
 					port: 10000
 				});
 				const registeredHosts: registered_hosts = {hosts: list.sort((a, b) => a.address.compare(b.address))};
@@ -112,7 +112,7 @@ describe('RegisterAsset', () => {
 			it('should update account infos',async () => {
 				await transactionAsset.apply(context);
 				const senderAccount = await stateStore.account.get<BitagoraAccountProps>(context.transaction.senderAddress)
-				expect(senderAccount.infos.my_neighbors).toEqual(test_registered_hosts.hosts)
+				expect(senderAccount.infos.myNeighbors).toEqual(test_registered_hosts.hosts)
 			});
 		});
 

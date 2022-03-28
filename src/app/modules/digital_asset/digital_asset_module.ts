@@ -25,13 +25,14 @@ import {
 
     BeforeBlockApplyContext, TransactionApplyContext
 } from 'lisk-sdk';
-import { digitalAssetAccountSchema } from '../../schemas/account';
+import { BitagoraAccountProps, digitalAssetAccountSchema } from '../../schemas/account';
 import { digitalAsset } from '../../schemas/digital_asset/digital_asset_types';
 import { ClaimAsset } from "./assets/claim_asset";
 import { CreateAsset } from "./assets/create_asset";
 import { RequestAsset } from "./assets/request_asset";
 import { ResponseAsset } from "./assets/response_asset";
 import { _getAllJSONAssets, _getAssetByMerkleRoot, _getAssetHistoryByMerkleRoot } from './utils/assets';
+import { _getAllJSONChunks } from './utils/chunks';
 
 export class DigitalAssetModule extends BaseModule {
     public actions = {
@@ -42,29 +43,38 @@ export class DigitalAssetModule extends BaseModule {
         // getBalance: async (params) => this._dataAccess.account.get(params.address).token.balance,
         // getBlockByID: async (params) => this._dataAccess.blocks.get(params.id),
         getAllAssets: async () => _getAllJSONAssets(this._dataAccess),
+        getAllChunks: async () => _getAllJSONChunks(this._dataAccess),
         getAssetHistory:async (params: Record<string, unknown>) => {
-            const { merkle_root } = params;
-            if (!Buffer.isBuffer(merkle_root)) {
+            const { merkleRoot } = params;
+            if (!Buffer.isBuffer(merkleRoot)) {
                 throw new Error('Merkle Root must be a buffer');
             }
-            _getAssetHistoryByMerkleRoot(this._dataAccess, merkle_root);
+            _getAssetHistoryByMerkleRoot(this._dataAccess, merkleRoot);
         },
         getAssetInfo:async (params:Record<string, unknown>): Promise<digitalAsset> => {
-            const { merkle_root } = params;
-            if (!Buffer.isBuffer(merkle_root)) {
+            const { merkleRoot } = params;
+            if (!Buffer.isBuffer(merkleRoot)) {
                 throw new Error('Merkle Root must be a buffer');
             }
-            const asset = await _getAssetByMerkleRoot(this._dataAccess, merkle_root);
+            const asset = await _getAssetByMerkleRoot(this._dataAccess, merkleRoot);
             return asset;
         },
         getAssetOwner: async(params: Record<string, unknown>): Promise<Buffer> => {
-            const { merkle_root } = params;
-            if (!Buffer.isBuffer(merkle_root)) {
+            const { merkleRoot } = params;
+            if (!Buffer.isBuffer(merkleRoot)) {
                 throw new Error('Merkle Root must be a buffer');
             }
-            const asset:digitalAsset = await _getAssetByMerkleRoot(this._dataAccess, merkle_root);
+            const asset:digitalAsset = await _getAssetByMerkleRoot(this._dataAccess, merkleRoot);
             return asset.owner;
-        }
+        },    
+        getAccountAssets:async (params:Record<string, unknown>) => {
+            let { address } = params;
+            if (!Buffer.isBuffer(address) && typeof address === 'string') {
+                address = Buffer.from(address, 'hex')
+            } 
+            const account = await this._dataAccess.getAccountByAddress<BitagoraAccountProps>(address as Buffer);
+            return account.digitalAsset;
+        },
     };
     public reducers = {
         // Example below

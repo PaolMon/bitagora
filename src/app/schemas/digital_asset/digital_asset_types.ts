@@ -1,13 +1,13 @@
 export type digitalAsset = {
 	owner:Buffer,
-	file_name:string,
-	file_size:number,
-	file_hash:Buffer,
-	merkle_root:Buffer,
-	merkle_height:number,
+	fileName:string,
+	fileSize:number,
+	fileHash:Buffer,
+	merkleRoot:Buffer,
+	merkleHeight:number,
 	secret:string,
-	transaction_id: Buffer,
-	previous_asset_reference: Buffer
+	transactionID: Buffer,
+	previousAssetReference: Buffer
 }
 
 export type registeredAssets = {

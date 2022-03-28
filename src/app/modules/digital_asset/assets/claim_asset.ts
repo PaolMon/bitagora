@@ -7,11 +7,11 @@ import { BitagoraAccountProps } from '../../../schemas/account';
 
 
 export type claim = {
-	old_merkle_root: Buffer,
-	new_merkle_root: Buffer,
-	new_merkle_height: number,
-	new_hosts: Buffer[],
-	new_secret: string
+	oldMerkleRoot: Buffer,
+	newMerkleRoot: Buffer,
+	newMerkleHeight: number,
+	newHosts: Buffer[],
+	newSecret: string
 }
 
 export class ClaimAsset extends BaseAsset {
@@ -23,28 +23,28 @@ export class ClaimAsset extends BaseAsset {
 		$id: 'digitalAsset/claim-asset',
 		title: 'ClaimAsset transaction asset for digitalAsset module',
 		type: 'object',
-		required: ['old_merkle_root','new_merkle_root', 'new_merkle_height', 'new_hosts'], 
+		required: ['oldMerkleRoot','newMerkleRoot', 'newMerkleHeight', 'newHosts'], 
 		properties: {
-			old_merkle_root:{
+			oldMerkleRoot:{
 				dataType: 'bytes',
 				fieldNumber: 1
 			},
-			new_merkle_root:{
+			newMerkleRoot:{
 				dataType: 'bytes',
 				fieldNumber: 2
 			},
-			new_merkle_height: {
+			newMerkleHeight: {
 				dataType: 'uint32',
 				fieldNumber: 3
 			},
-			new_hosts: {
+			newHosts: {
 				type: 'array',
 				fieldNumber: 4,
 				items: {
 					dataType: 'bytes'
 				}
 			},
-			new_secret: {
+			newSecret: {
 				dataType: 'string',
 				fieldNumber: 5
 			}
@@ -53,7 +53,7 @@ export class ClaimAsset extends BaseAsset {
 
 	public validate({ asset }: ValidateAssetContext<claim>): void {
 		// Validate your asset
-		if (asset.new_merkle_height === 0 && asset.new_hosts.length < 3) {
+		if (asset.newMerkleHeight === 0 && asset.newHosts.length < 3) {
 			throw new Error("If file has been splitted into chunks, it must be sent to at least 3 hosts");
 		}
 	}
@@ -62,32 +62,32 @@ export class ClaimAsset extends BaseAsset {
 	public async apply({ asset, transaction, stateStore }: ApplyAssetContext<claim>): Promise<void> {
 		
 		const senderAddress: Buffer = transaction.senderAddress;
-		const old_chunk: chunk = await getChunkByMerkleRoot(stateStore, asset.old_merkle_root);
+		const old_chunk: chunk = await getChunkByMerkleRoot(stateStore, asset.oldMerkleRoot);
 
 		if (old_chunk.owner.compare(senderAddress) != 0) {
 			throw new Error("You are not allowed to claim this asset");
 		}
 
-		const digital_asset: digitalAsset = await getAssetByMerkleRoot(stateStore, asset.old_merkle_root);
+		const digital_asset: digitalAsset = await getAssetByMerkleRoot(stateStore, asset.oldMerkleRoot);
 
 		digital_asset.owner = senderAddress;
-		digital_asset.merkle_root = asset.new_merkle_root;
-		digital_asset.merkle_height = asset.new_merkle_height;
-		digital_asset.previous_asset_reference = asset.old_merkle_root;
-		digital_asset.transaction_id = transaction.id;
-		digital_asset.secret = asset.new_secret;
+		digital_asset.merkleRoot = asset.newMerkleRoot;
+		digital_asset.merkleHeight = asset.newMerkleHeight;
+		digital_asset.previousAssetReference = asset.oldMerkleRoot;
+		digital_asset.transactionID = transaction.id;
+		digital_asset.secret = asset.newSecret;
 	
 		const chunk: chunk = {
 			owner: senderAddress,
-			merkle_root: asset.new_merkle_root,
-			hosted_by: [],
-			requested_by: [],
-			allowed_viewers: []
+			merkleRoot: asset.newMerkleRoot,
+			hostedBy: [],
+			requestedBy: [],
+			allowedViewers: []
 		} 
 		
 		const senderAccount = await stateStore.account.get<BitagoraAccountProps>(senderAddress);
 		
-		senderAccount.digitalAsset.my_files.push({file_name: digital_asset.file_name, merkle_root: digital_asset.merkle_root, secret: asset.new_secret})
+		senderAccount.digitalAsset.myFiles.push({fileName: digital_asset.fileName, merkleRoot: digital_asset.merkleRoot, secret: asset.newSecret})
 
 		await setNewChunk(stateStore, chunk);
 

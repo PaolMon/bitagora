@@ -2227,8 +2227,19 @@
 		"dashboard": {
 			"applicationUrl": "ws://localhost:8080/ws",
 			"port": 4005,
-			"host": "127.0.0.1",
+			"host": "0.0.0.0",
 			"applicationName": "NeatBox"
+		},
+		"faucet": {
+			"encryptedPassphrase": "iterations=1000000&cipherText=38175735967314c0f57b047ecb4b487e4dd84062abef5199f671109c5429236814bae011ef5b4fe650828f516459d5c7e76945edd2966134e5a6a299b97ecf9cdad3038c6eb26c&iv=997b4a63e01ff7f4885331c9&salt=775a01c7b5e457585749d8aaee11a483&tag=e9a7d1c9e1260fc87e17ecc918f71297&version=1",
+			"captchaSitekey": "6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI",
+			"captchaSecretkey": "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe",
+			"port": 4004,
+			"host": "0.0.0.0",
+			"applicationUrl": "ws://localhost:8080/ws",
+			"fee": "0.1",
+			"amount": "100",
+			"tokenPrefix": "lsk"
 		}
 	}
 }

@@ -8,24 +8,24 @@ export const registeredChunksSchema = {
 		fieldNumber: 1,
 		items: {
 			type: 'object',
-			required: ['owner', 'merkle_root', 'hosted_by', 'allowed_viewers'],
+			required: ['owner', 'merkleRoot', 'hostedBy', 'allowedViewers'],
 			properties: {
 				owner: {
 					dataType: 'bytes',
 					fieldNumber: 1
 				},
-				merkle_root: {
+				merkleRoot: {
 					dataType: 'bytes',
 					fieldNumber: 2
 				},
-				hosted_by: {
+				hostedBy: {
 					type: 'array',
 					fieldNumber: 3,
 					items: {
 						dataType: 'bytes'
 					}
 				},
-				requested_by: {
+				requestedBy: {
 					type: 'array',
 					fieldNumber: 4,
 					items: {
@@ -35,15 +35,15 @@ export const registeredChunksSchema = {
 								dataType: 'bytes',
 								fieldNumber: 1
 							},
-							request_transaction: {
+							requestTransaction: {
 								dataType: 'bytes',
 								fieldNumber: 2
 							},
-							response_transaction: {
+							responseTransaction: {
 								dataType: 'bytes',
 								fieldNumber: 3
 							},
-							request_type: {
+							requestType: {
 								dataType: 'string',
 								fieldNumber: 4
 							},
@@ -54,7 +54,7 @@ export const registeredChunksSchema = {
 						}
 					}
 				},
-				allowed_viewers: {
+				allowedViewers: {
 					type: 'array',
 					fieldNumber: 5,
 					items: {

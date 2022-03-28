@@ -3,11 +3,11 @@ export type registered_chunks = {
 }
 
 export type chunk = {
-    merkle_root: Buffer,
+    merkleRoot: Buffer,
     owner: Buffer,
-    hosted_by: Buffer[],
-	requested_by: request_object[],
-    allowed_viewers: viewer[],
+    hostedBy: Buffer[],
+	requestedBy: request_object[],
+    allowedViewers: viewer[],
 }
 
 export type viewer = {
@@ -18,8 +18,8 @@ export type viewer = {
 
 export type request_object = {
 	address: Buffer,
-    request_transaction: Buffer,
-    response_transaction: Buffer,
-	request_type: string,
+    requestTransaction: Buffer,
+    responseTransaction: Buffer,
+	requestType: string,
 	status: string
 }

@@ -1,29 +1,29 @@
 // export const digitalAssetSchema = {
 // 	$id: 'lisk/digital_asset/digitalAsset',
 // 	type: 'object',
-// 	required: ['owner', 'file_name', 'file_size', 'file_hash', 'merkle_root', 'merkle_height', 'secret', 'transaction_id', 'previous_asset_reference', 'requested_by'],
+// 	required: ['owner', 'fileName', 'fileSize', 'fileHash', 'merkleRoot', 'merkleHeight', 'secret', 'transactionID', 'previousAssetReference', 'requested_by'],
 // 	properties: {
 // 		owner: {
 // 			dataType: 'bytes',
 // 			fieldNumber: 1
 // 		},
-// 		file_name:{
+// 		fileName:{
 // 			dataType: 'string',
 // 			fieldNumber: 2
 // 		},
-// 		file_size: {
+// 		fileSize: {
 // 			dataType: 'uint32',
 // 			fieldNumber: 3
 // 		},
-// 		file_hash: {
+// 		fileHash: {
 // 			dataType: 'bytes',
 // 			fieldNumber: 4
 // 		},
-// 		merkle_root: {
+// 		merkleRoot: {
 // 			dataType: 'bytes',
 // 			fieldNumber: 5
 // 		},
-// 		merkle_height: {
+// 		merkleHeight: {
 // 			dataType: 'uint32',
 // 			fieldNumber: 6
 // 		},
@@ -31,11 +31,11 @@
 // 			dataType: 'string',
 // 			fieldNumber: 7
 // 		},
-// 		transaction_id: {
+// 		transactionID: {
 // 			dataType: 'bytes',
 // 			fieldNumber: 8
 // 		},
-// 		previous_asset_reference: {
+// 		previousAssetReference: {
 // 			dataType: 'bytes',
 // 			fieldNumber: 9
 // 		}
@@ -52,29 +52,29 @@ export const registeredAssetsSchema = {
 		fieldNumber: 1,
 		items: {
 			type: 'object',
-			required: ['owner', 'file_name', 'file_size', 'file_hash', 'merkle_root', 'merkle_height', 'secret', 'transaction_id', 'previous_asset_reference'],
+			required: ['owner', 'fileName', 'fileSize', 'fileHash', 'merkleRoot', 'merkleHeight', 'secret', 'transactionID', 'previousAssetReference'],
 			properties: {
 				owner: {
 					dataType: 'bytes',
 					fieldNumber: 1
 				},
-				file_name:{
+				fileName:{
 					dataType: 'string',
 					fieldNumber: 2
 				},
-				file_size: {
+				fileSize: {
 					dataType: 'uint32',
 					fieldNumber: 3
 				},
-				file_hash: {
+				fileHash: {
 					dataType: 'bytes',
 					fieldNumber: 4
 				},
-				merkle_root: {
+				merkleRoot: {
 					dataType: 'bytes',
 					fieldNumber: 5
 				},
-				merkle_height: {
+				merkleHeight: {
 					dataType: 'uint32',
 					fieldNumber: 6
 				},
@@ -82,11 +82,11 @@ export const registeredAssetsSchema = {
 					dataType: 'string',
 					fieldNumber: 7
 				},
-				transaction_id: {
+				transactionID: {
 					dataType: 'bytes',
 					fieldNumber: 8
 				},
-				previous_asset_reference: {
+				previousAssetReference: {
 					dataType: 'bytes',
 					fieldNumber: 9
 				}

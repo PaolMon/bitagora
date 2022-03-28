@@ -49,20 +49,20 @@ describe('ResponseAsset', () => {
 
 		beforeEach(() => {
 			ownerAccount = testing.fixtures.createDefaultAccount<BitagoraAccountProps>([DigitalAssetModule]);
-			ownerAccount.digitalAsset.my_files = [
+			ownerAccount.digitalAsset.myFiles = [
 				{
-					file_name: 'prova_1',
-					merkle_root: Buffer.alloc(7, 'prova_1'),
+					fileName: 'prova_1',
+					merkleRoot: Buffer.alloc(7, 'prova_1'),
 					secret: 'secret'
 				},
 				{
-					file_name: 'prova_2',
-					merkle_root: Buffer.alloc(7, 'prova_2'),
+					fileName: 'prova_2',
+					merkleRoot: Buffer.alloc(7, 'prova_2'),
 					secret: 'secret'
 				},
 				{
-					file_name: 'prova_4',
-					merkle_root: Buffer.alloc(7, 'prova_4'),
+					fileName: 'prova_4',
+					merkleRoot: Buffer.alloc(7, 'prova_4'),
 					secret: 'secret'
 				}
 			]
@@ -71,12 +71,12 @@ describe('ResponseAsset', () => {
 			responseToAccount = testing.fixtures.createDefaultAccount<BitagoraAccountProps>([DigitalAssetModule]);
 			responseToAccount.digitalAsset.pending = [
 				{
-					file_name: 'prova_1',
-					merkle_root: Buffer.alloc(7, 'prova_1'),
+					fileName: 'prova_1',
+					merkleRoot: Buffer.alloc(7, 'prova_1'),
 				},
 				{
-					file_name: 'prova_2',
-					merkle_root: Buffer.alloc(7, 'prova_2'),
+					fileName: 'prova_2',
+					merkleRoot: Buffer.alloc(7, 'prova_2'),
 				}
 			]
 			
@@ -85,47 +85,47 @@ describe('ResponseAsset', () => {
 				registeredAssets: [
 					{
 						owner: ownerAccount.address,
-						file_name: 'prova_1',
-						file_size: 1,
-						file_hash: Buffer.alloc(7, 'prova_1'),
-						merkle_root: Buffer.alloc(7, 'prova_1'),
-						merkle_height: 0,
+						fileName: 'prova_1',
+						fileSize: 1,
+						fileHash: Buffer.alloc(7, 'prova_1'),
+						merkleRoot: Buffer.alloc(7, 'prova_1'),
+						merkleHeight: 0,
 						secret: 'secret',
-						transaction_id: Buffer.alloc(3,'tx1'),
-						previous_asset_reference: Buffer.alloc(0)
+						transactionID: Buffer.alloc(3,'tx1'),
+						previousAssetReference: Buffer.alloc(0)
 					},
 					{
 						owner: ownerAccount.address,
-						file_name: 'prova_2',
-						file_size: 1,
-						file_hash: Buffer.alloc(7, 'prova_2'),
-						merkle_root: Buffer.alloc(7, 'prova_2'),
-						merkle_height: 0,
+						fileName: 'prova_2',
+						fileSize: 1,
+						fileHash: Buffer.alloc(7, 'prova_2'),
+						merkleRoot: Buffer.alloc(7, 'prova_2'),
+						merkleHeight: 0,
 						secret: 'secret',
-						transaction_id: Buffer.alloc(3,'tx2'),
-						previous_asset_reference: Buffer.alloc(0)
+						transactionID: Buffer.alloc(3,'tx2'),
+						previousAssetReference: Buffer.alloc(0)
 					},
 					{
 						owner: Buffer.alloc(5,'jonny'),
-						file_name: 'prova_3',
-						file_size: 1,
-						file_hash: Buffer.alloc(7, 'prova_3'),
-						merkle_root: Buffer.alloc(7, 'prova_3'),
-						merkle_height: 0,
+						fileName: 'prova_3',
+						fileSize: 1,
+						fileHash: Buffer.alloc(7, 'prova_3'),
+						merkleRoot: Buffer.alloc(7, 'prova_3'),
+						merkleHeight: 0,
 						secret: 'secret',
-						transaction_id: Buffer.alloc(3,'tx3'),
-						previous_asset_reference: Buffer.alloc(0)
+						transactionID: Buffer.alloc(3,'tx3'),
+						previousAssetReference: Buffer.alloc(0)
 					},
 					{
 						owner: ownerAccount.address,
-						file_name: 'prova_4',
-						file_size: 1,
-						file_hash: Buffer.alloc(7, 'prova_4'),
-						merkle_root: Buffer.alloc(7, 'prova_4'),
-						merkle_height: 0,
+						fileName: 'prova_4',
+						fileSize: 1,
+						fileHash: Buffer.alloc(7, 'prova_4'),
+						merkleRoot: Buffer.alloc(7, 'prova_4'),
+						merkleHeight: 0,
 						secret: 'secret',
-						transaction_id: Buffer.alloc(3,'tx4'),
-						previous_asset_reference: Buffer.alloc(0)
+						transactionID: Buffer.alloc(3,'tx4'),
+						previousAssetReference: Buffer.alloc(0)
 					}
 				]
 			}
@@ -134,44 +134,44 @@ describe('ResponseAsset', () => {
 			{
 				chunks: [
 					{
-						merkle_root: Buffer.alloc(7, 'prova_1'),
+						merkleRoot: Buffer.alloc(7, 'prova_1'),
 						owner: ownerAccount.address,
-						hosted_by: [],
-						requested_by: [{
+						hostedBy: [],
+						requestedBy: [{
 							address: responseToAccount.address,
-							request_transaction: Buffer.alloc(3, 'tx1'),
-							response_transaction: Buffer.alloc(0),
-							request_type: request_type.view_only,
+							requestTransaction: Buffer.alloc(3, 'tx1'),
+							responseTransaction: Buffer.alloc(0),
+							requestType: request_type.view_only,
 							status: request_status.pending
 						}],
-						allowed_viewers: [],
+						allowedViewers: [],
 					},
 					{
-						merkle_root: Buffer.alloc(7, 'prova_2'),
+						merkleRoot: Buffer.alloc(7, 'prova_2'),
 						owner: ownerAccount.address,
-						hosted_by: [],
-						requested_by: [{
+						hostedBy: [],
+						requestedBy: [{
 							address: responseToAccount.address,
-							request_transaction: Buffer.alloc(3, 'tx2'),
-							response_transaction: Buffer.alloc(0),
-							request_type: request_type.ownership,
+							requestTransaction: Buffer.alloc(3, 'tx2'),
+							responseTransaction: Buffer.alloc(0),
+							requestType: request_type.ownership,
 							status: request_status.pending
 						}],
-						allowed_viewers: [],
+						allowedViewers: [],
 					},
 					{
-						merkle_root: Buffer.alloc(7, 'prova_3'),
+						merkleRoot: Buffer.alloc(7, 'prova_3'),
 						owner: Buffer.alloc(5,'jonny'),
-						hosted_by: [],
-						requested_by: [],
-						allowed_viewers: [],
+						hostedBy: [],
+						requestedBy: [],
+						allowedViewers: [],
 					},
 					{
-						merkle_root: Buffer.alloc(7, 'prova_4'),
+						merkleRoot: Buffer.alloc(7, 'prova_4'),
 						owner: ownerAccount.address,
-						hosted_by: [],
-						requested_by: [],
-						allowed_viewers: [],
+						hostedBy: [],
+						requestedBy: [],
+						allowedViewers: [],
 					}
 				]
 			}
@@ -191,9 +191,9 @@ describe('ResponseAsset', () => {
 				reducerHandler,
 				asset: {
 					address: responseToAccount.address,
-					merkle_root: Buffer.alloc(7, 'prova_1'),
+					merkleRoot: Buffer.alloc(7, 'prova_1'),
 					response: response_type.ok,
-					new_secret: 'secret_2'
+					newSecret: 'secret_2'
 				},
 				transaction: { senderAddress: ownerAccount.address, nonce: BigInt(1) } as any,
 			});
@@ -207,23 +207,23 @@ describe('ResponseAsset', () => {
 				await transactionAsset.apply(context);
 				let trc = test_registered_chunks;
 
-				const c_index: number = trc.chunks.findIndex((t) => t.merkle_root.equals(context.asset.merkle_root));
+				const c_index: number = trc.chunks.findIndex((t) => t.merkleRoot.equals(context.asset.merkleRoot));
 				if (c_index < 0) {
 					throw new Error("Chunk not found");
 				}
 
 				let chunk = {
-					merkle_root: Buffer.alloc(7, 'prova_1'),
+					merkleRoot: Buffer.alloc(7, 'prova_1'),
 					owner: ownerAccount.address,
-					hosted_by: [],
-					requested_by: [{
+					hostedBy: [],
+					requestedBy: [{
 						address: responseToAccount.address,
-						request_transaction: Buffer.alloc(3, 'tx1'),
-						response_transaction: context.transaction.id,
-						request_type: request_type.view_only,
+						requestTransaction: Buffer.alloc(3, 'tx1'),
+						responseTransaction: context.transaction.id,
+						requestType: request_type.view_only,
 						status: request_status.accepted
 					}],
-					allowed_viewers: [{
+					allowedViewers: [{
 						address:responseToAccount.address,
 						secret: 'secret_2'
 					}],
@@ -238,27 +238,27 @@ describe('ResponseAsset', () => {
 
 			});
 			it('should update the state store - case ownership and response OK',async () => {
-				context.asset.merkle_root = Buffer.alloc(7, 'prova_2');
+				context.asset.merkleRoot = Buffer.alloc(7, 'prova_2');
 				await transactionAsset.apply(context);
 				let trc = test_registered_chunks;
 
-				const c_index: number = trc.chunks.findIndex((t) => t.merkle_root.equals(context.asset.merkle_root));
+				const c_index: number = trc.chunks.findIndex((t) => t.merkleRoot.equals(context.asset.merkleRoot));
 				if (c_index < 0) {
 					throw new Error("Chunk not found");
 				}
 
 				let chunk = {
-					merkle_root: Buffer.alloc(7, 'prova_2'),
+					merkleRoot: Buffer.alloc(7, 'prova_2'),
 					owner: responseToAccount.address,
-					hosted_by: [],
-					requested_by: [{
+					hostedBy: [],
+					requestedBy: [{
 						address: responseToAccount.address,
-						request_transaction: Buffer.alloc(3, 'tx2'),
-						response_transaction: context.transaction.id,
-						request_type: request_type.ownership,
+						requestTransaction: Buffer.alloc(3, 'tx2'),
+						responseTransaction: context.transaction.id,
+						requestType: request_type.ownership,
 						status: request_status.accepted
 					}],
-					allowed_viewers: [],
+					allowedViewers: [],
 				}
 
 				trc.chunks[c_index] = chunk

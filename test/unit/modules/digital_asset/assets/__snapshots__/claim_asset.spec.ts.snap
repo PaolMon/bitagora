@@ -4,35 +4,35 @@ exports[`ClaimAsset constructor should have valid schema 1`] = `
 Object {
   "$id": "digitalAsset/claim-asset",
   "properties": Object {
-    "new_hosts": Object {
+    "newHosts": Object {
       "fieldNumber": 4,
       "items": Object {
         "dataType": "bytes",
       },
       "type": "array",
     },
-    "new_merkle_height": Object {
+    "newMerkleHeight": Object {
       "dataType": "uint32",
       "fieldNumber": 3,
     },
-    "new_merkle_root": Object {
+    "newMerkleRoot": Object {
       "dataType": "bytes",
       "fieldNumber": 2,
     },
-    "new_secret": Object {
+    "newSecret": Object {
       "dataType": "string",
       "fieldNumber": 5,
     },
-    "old_merkle_root": Object {
+    "oldMerkleRoot": Object {
       "dataType": "bytes",
       "fieldNumber": 1,
     },
   },
   "required": Array [
-    "old_merkle_root",
-    "new_merkle_root",
-    "new_merkle_height",
-    "new_hosts",
+    "oldMerkleRoot",
+    "newMerkleRoot",
+    "newMerkleHeight",
+    "newHosts",
   ],
   "title": "ClaimAsset transaction asset for digitalAsset module",
   "type": "object",

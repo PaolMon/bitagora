@@ -1,4 +1,4 @@
-import {  StateStore } from "lisk-sdk";
+import {  BaseModuleDataAccess, StateStore } from "lisk-sdk";
 import { codec } from "lisk-sdk";
 import { registeredChunksSchema } from "../../../schemas/chunks/chunk_schemas";
 import { chunk, registered_chunks } from "../../../schemas/chunks/chunk_types";
@@ -11,7 +11,7 @@ export const setNewChunk= async (stateStore: StateStore, asset: chunk) => {
 
     chunks.push(asset);
 
-    const registeredChunks: registered_chunks = {chunks: chunks.sort((a, b) => a.merkle_root.compare(b.merkle_root))};
+    const registeredChunks: registered_chunks = {chunks: chunks.sort((a, b) => a.merkleRoot.compare(b.merkleRoot))};
 
     await stateStore.chain.set(
         CHAIN_STATE_CHUNKS,
@@ -22,7 +22,7 @@ export const setNewChunk= async (stateStore: StateStore, asset: chunk) => {
 export const updateChunk =async (stateStore:StateStore, asset:chunk) => {
     const chunks:chunk[] = await getAllChunks(stateStore);
 
-    const c_index: number = chunks.findIndex((t) => t.merkle_root.equals(asset.merkle_root));
+    const c_index: number = chunks.findIndex((t) => t.merkleRoot.equals(asset.merkleRoot));
     
     if (c_index < 0) {
         throw new Error("Asset not found");
@@ -38,10 +38,10 @@ export const updateChunk =async (stateStore:StateStore, asset:chunk) => {
     );
 }
 
-export const getChunkByMerkleRoot = async (stateStore: StateStore, merkle_root: Buffer) => {
+export const getChunkByMerkleRoot = async (stateStore: StateStore, merkleRoot: Buffer) => {
     const chunks:chunk[] = await getAllChunks(stateStore);
 
-    const c_index: number = chunks.findIndex((t) => t.merkle_root.equals(merkle_root));
+    const c_index: number = chunks.findIndex((t) => t.merkleRoot.equals(merkleRoot));
 
     if (c_index < 0) {
         throw new Error("Asset not found");
@@ -50,10 +50,10 @@ export const getChunkByMerkleRoot = async (stateStore: StateStore, merkle_root: 
     return chunks[c_index];    
 }
 
-export const checkChunkExistenceByMerkleRoot = async (stateStore: StateStore, merkle_root: Buffer): Promise<boolean> => {
+export const checkChunkExistenceByMerkleRoot = async (stateStore: StateStore, merkleRoot: Buffer): Promise<boolean> => {
     const chunks:chunk[] = await getAllChunks(stateStore);
 
-    const c_index: number = chunks.findIndex((t) => t.merkle_root.equals(merkle_root));
+    const c_index: number = chunks.findIndex((t) => t.merkleRoot.equals(merkleRoot));
 
     if (c_index < 0) {
         return false;
@@ -77,5 +77,22 @@ export const getAllChunks = async (stateStore: StateStore) => {
     );
 
     return registeredChunks.chunks;
+}
+
+export const _getAllJSONChunks =async (dataAccess: BaseModuleDataAccess) => {
+    const registeredChunksBuffer = await dataAccess.getChainState(
+        CHAIN_STATE_CHUNKS
+    );
+    
+    if (!registeredChunksBuffer) {
+        return [];
+    }
+    
+    const registeredChunks = codec.decode<registered_chunks>(
+        registeredChunksSchema,
+        registeredChunksBuffer
+    );
+    
+      return codec.toJSON(registeredChunksSchema, registeredChunks);
 }
 
