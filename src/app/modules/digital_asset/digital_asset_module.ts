@@ -45,26 +45,26 @@ export class DigitalAssetModule extends BaseModule {
         getAllAssets: async () => _getAllJSONAssets(this._dataAccess),
         getAllChunks: async () => _getAllJSONChunks(this._dataAccess),
         getAssetHistory:async (params: Record<string, unknown>) => {
-            const { merkleRoot } = params;
-            if (!Buffer.isBuffer(merkleRoot)) {
-                throw new Error('Merkle Root must be a buffer');
-            }
-            _getAssetHistoryByMerkleRoot(this._dataAccess, merkleRoot);
+            let { merkleRoot } = params;
+            if (!Buffer.isBuffer(merkleRoot) && typeof merkleRoot === 'string') {
+                merkleRoot = Buffer.from(merkleRoot, 'hex')
+            } 
+            _getAssetHistoryByMerkleRoot(this._dataAccess, merkleRoot as Buffer);
         },
         getAssetInfo:async (params:Record<string, unknown>): Promise<digitalAsset> => {
-            const { merkleRoot } = params;
-            if (!Buffer.isBuffer(merkleRoot)) {
-                throw new Error('Merkle Root must be a buffer');
-            }
-            const asset = await _getAssetByMerkleRoot(this._dataAccess, merkleRoot);
+            let { merkleRoot } = params;
+            if (!Buffer.isBuffer(merkleRoot) && typeof merkleRoot === 'string') {
+                merkleRoot = Buffer.from(merkleRoot, 'hex')
+            } 
+            const asset = await _getAssetByMerkleRoot(this._dataAccess, merkleRoot as Buffer);
             return asset;
         },
         getAssetOwner: async(params: Record<string, unknown>): Promise<Buffer> => {
-            const { merkleRoot } = params;
-            if (!Buffer.isBuffer(merkleRoot)) {
-                throw new Error('Merkle Root must be a buffer');
-            }
-            const asset:digitalAsset = await _getAssetByMerkleRoot(this._dataAccess, merkleRoot);
+            let { merkleRoot } = params;
+            if (!Buffer.isBuffer(merkleRoot) && typeof merkleRoot === 'string') {
+                merkleRoot = Buffer.from(merkleRoot, 'hex')
+            } 
+            const asset:digitalAsset = await _getAssetByMerkleRoot(this._dataAccess, merkleRoot as Buffer);
             return asset.owner;
         },    
         getAccountAssets:async (params:Record<string, unknown>) => {

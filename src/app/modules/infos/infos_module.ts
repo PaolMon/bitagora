@@ -41,6 +41,15 @@ export class InfosModule extends BaseModule {
             const account = await this._dataAccess.getAccountByAddress<BitagoraAccountProps>(address as Buffer);
             return account.infos;
         },
+        getAccount:async (params:Record<string, unknown>) => {
+            let { address } = params;
+            if (!Buffer.isBuffer(address) && typeof address === 'string') {
+                address = Buffer.from(address, 'hex')
+            } 
+            const account = await this._dataAccess.getAccountByAddress<BitagoraAccountProps>(address as Buffer);
+            this._logger.info(account, 'ACCOUNT INFO')
+            return JSON.stringify(account);
+        },
     };
     public reducers = {
         // Example below
