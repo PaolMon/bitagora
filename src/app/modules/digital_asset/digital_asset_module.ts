@@ -49,24 +49,27 @@ export class DigitalAssetModule extends BaseModule {
             if (!Buffer.isBuffer(merkleRoot) && typeof merkleRoot === 'string') {
                 merkleRoot = Buffer.from(merkleRoot, 'hex')
             } 
-            _getAssetHistoryByMerkleRoot(this._dataAccess, merkleRoot as Buffer);
+            return _getAssetHistoryByMerkleRoot(this._dataAccess, merkleRoot as Buffer);
         },
-        getAssetInfo:async (params:Record<string, unknown>): Promise<digitalAsset> => {
+
+        getAsset:async (params:Record<string, unknown>): Promise<string> => {
             let { merkleRoot } = params;
             if (!Buffer.isBuffer(merkleRoot) && typeof merkleRoot === 'string') {
                 merkleRoot = Buffer.from(merkleRoot, 'hex')
             } 
             const asset = await _getAssetByMerkleRoot(this._dataAccess, merkleRoot as Buffer);
-            return asset;
+            return JSON.stringify(asset);
         },
-        getAssetOwner: async(params: Record<string, unknown>): Promise<Buffer> => {
+
+        getAssetOwner: async(params: Record<string, unknown>): Promise<string> => {
             let { merkleRoot } = params;
             if (!Buffer.isBuffer(merkleRoot) && typeof merkleRoot === 'string') {
                 merkleRoot = Buffer.from(merkleRoot, 'hex')
             } 
             const asset:digitalAsset = await _getAssetByMerkleRoot(this._dataAccess, merkleRoot as Buffer);
-            return asset.owner;
-        },    
+            return asset.owner.toString('hex');
+        },
+
         getAccountAssets:async (params:Record<string, unknown>) => {
             let { address } = params;
             if (!Buffer.isBuffer(address) && typeof address === 'string') {

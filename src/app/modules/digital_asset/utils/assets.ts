@@ -115,7 +115,7 @@ export const _getAssetHistoryByMerkleRoot = async (dataAccess: BaseModuleDataAcc
     let index = -1;
     let asset: digitalAsset;
 
-    while(merkleRoot.compare(Buffer.alloc(0)) === 0) {
+    while(!merkleRoot.equals(Buffer.alloc(0))) {
         
         index = DAs.findIndex((t) => t.merkleRoot.equals(merkleRoot));
 
@@ -130,4 +130,5 @@ export const _getAssetHistoryByMerkleRoot = async (dataAccess: BaseModuleDataAcc
     }
 
     return codec.toJSON(registeredAssetsSchema, {registeredAssets: related_assets});
+    //return related_assets;
 }
