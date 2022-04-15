@@ -47,7 +47,6 @@ export class InfosModule extends BaseModule {
                 address = Buffer.from(address, 'hex')
             } 
             const account = await this._dataAccess.getAccountByAddress<BitagoraAccountProps>(address as Buffer);
-            this._logger.info(account, 'ACCOUNT INFO')
             return JSON.stringify(account);
         },
     };

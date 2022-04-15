@@ -27,7 +27,7 @@ export class RegisterAsset extends BaseAsset {
 				fieldNumber: 1
 			},
 			port: {
-				dataType: 'unit32',
+				dataType: 'uint32',
 				fieldNumber: 2
 			}
 		},
@@ -50,37 +50,37 @@ export class RegisterAsset extends BaseAsset {
 
 	// eslint-disable-next-line @typescript-eslint/require-await
   	public async apply({ asset, transaction, stateStore }: ApplyAssetContext<register>): Promise<void> {
-		  const senderAddress:Buffer = transaction.senderAddress;
+		const senderAddress:Buffer = transaction.senderAddress;
 
-		  await setNewHost(stateStore, {
-			  address: senderAddress,
-			  ipAddress: asset.ipAddress,
-			  port: asset.port
-		  });
+		await setNewHost(stateStore, {
+			address: senderAddress,
+			ipAddress: asset.ipAddress,
+			port: asset.port
+		});
 
 
-		  const list: host[] = await getAllHosts(stateStore);
+		const list: host[] = await getAllHosts(stateStore);
 
-		  const h_index = await getHostIndex(list, senderAddress)
-		  
-		  let begin = h_index - MAX_NEIGHBORS/2;
-		  let end = h_index + MAX_NEIGHBORS/2
+		const h_index = await getHostIndex(list, senderAddress)
+		
+		let begin = h_index - MAX_NEIGHBORS/2;
+		let end = h_index + MAX_NEIGHBORS/2
 
-		  if( begin < 0) {
-			  begin = 0
-			  end = MAX_NEIGHBORS + 1
-		  }
-		  if( end >= list.length) {
+		if( begin < 0) {
+			begin = 0
+			end = MAX_NEIGHBORS + 1
+		}
+		if( end >= list.length) {
 			begin = list.length - 1 - MAX_NEIGHBORS
-			  end = list.length - 1
-		  }
+			end = list.length - 1
+		}
 
-		  let my_neighbors: host[] = [...list.slice(begin,h_index), ...list.slice(h_index+1, end+1)];
+		let my_neighbors: host[] = [...list.slice(begin,h_index), ...list.slice(h_index+1, end+1)];
 
-		  let senderAccount = await stateStore.account.get<BitagoraAccountProps>(senderAddress);
+		let senderAccount = await stateStore.account.get<BitagoraAccountProps>(senderAddress);
 
-		  senderAccount.infos.myNeighbors = my_neighbors;
+		senderAccount.infos.myNeighbors = my_neighbors;
 
-		  await stateStore.account.set(senderAddress, senderAccount).catch();
+		await stateStore.account.set(senderAddress, senderAccount).catch();
 	}
 }

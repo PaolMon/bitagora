@@ -23,9 +23,10 @@ import {
     AfterGenesisBlockApplyContext, BaseModule,
 
 
-    BeforeBlockApplyContext, TransactionApplyContext
+    BeforeBlockApplyContext, codec, TransactionApplyContext
 } from 'lisk-sdk';
 import { BitagoraAccountProps, digitalAssetAccountSchema } from '../../schemas/account';
+import { digitalAssetSchema } from '../../schemas/digital_asset/digital_asset_schemas';
 import { digitalAsset } from '../../schemas/digital_asset/digital_asset_types';
 import { ClaimAsset } from "./assets/claim_asset";
 import { CreateAsset } from "./assets/create_asset";
@@ -52,13 +53,14 @@ export class DigitalAssetModule extends BaseModule {
             return _getAssetHistoryByMerkleRoot(this._dataAccess, merkleRoot as Buffer);
         },
 
-        getAsset:async (params:Record<string, unknown>): Promise<string> => {
+        getAsset:async (params:Record<string, unknown>): Promise<object> => {
             let { merkleRoot } = params;
             if (!Buffer.isBuffer(merkleRoot) && typeof merkleRoot === 'string') {
                 merkleRoot = Buffer.from(merkleRoot, 'hex')
             } 
             const asset = await _getAssetByMerkleRoot(this._dataAccess, merkleRoot as Buffer);
-            return JSON.stringify(asset);
+            //return JSON.stringify(asset);
+            return codec.toJSON(digitalAssetSchema, asset)
         },
 
         getAssetOwner: async(params: Record<string, unknown>): Promise<string> => {
